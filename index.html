@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keesari Uday Reddy — Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050810;
+            --surface: #0d1117;
+            --surface2: #111827;
+            --border: rgba(255,255,255,0.07);
+            --accent: #4f8ef7;
+            --accent2: #a78bfa;
+            --accent3: #34d399;
+            --text: #f0f4ff;
+            --muted: #6b7280;
+            --glow-blue: rgba(79,142,247,0.25);
+            --glow-purple: rgba(167,139,250,0.2);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* ── CANVAS BACKGROUND ── */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── NOISE OVERLAY ── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.4;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ── NAV ── */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-box {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: white;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* ── HERO ── */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: 88vh;
+            padding: 4rem 0;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 32px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .hero-eyebrow .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent3);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1.0;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 .word-outline {
+            color: transparent;
+            -webkit-text-stroke: 1.5px rgba(255,255,255,0.25);
+            transition: -webkit-text-stroke 0.4s;
+        }
+
+        .hero h1 .word-outline:hover {
+            -webkit-text-stroke-color: var(--accent);
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            max-width: 480px;
+        }
+
+        .hero-desc strong { color: var(--text); }
+
+        .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+        .btn {
+            padding: 0.85rem 1.8rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: white;
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px var(--glow-blue);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* ── 3D HERO CARD ── */
+        .hero-scene {
+            perspective: 1200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-card-3d {
+            width: 320px;
+            height: 420px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease;
+        }
+
+        .hero-card-face {
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a2544, #0f172a);
+            border: 1px solid rgba(79,142,247,0.3);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .hero-card-avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1.5rem;
+            position: relative;
+            box-shadow: 0 0 40px var(--glow-blue), 0 0 80px var(--glow-purple);
+        }
+
+        .hero-card-avatar::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--accent), var(--accent2)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+
+        }
+
+        @keyframes spin-border {
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-card-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero-card-role {
+            font-size: 0.78rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        
+
+        .chip {
+            padding: 0.25rem 0.7rem;
+            background: rgba(79,142,247,0.1);
+            border: 1px solid rgba(79,142,247,0.25);
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* Floating 3D orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(79,142,247,0.15), transparent);
+            top: 10%; right: -10%;
+        }
+
+        .orb-2 {
+            width: 250px; height: 250px;
+            background: radial-gradient(circle, rgba(167,139,250,0.12), transparent);
+            top: 50%; left: -5%;
+        }
+
+        .orb-3 {
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(52,211,153,0.1), transparent);
+            bottom: 10%; right: 20%;
+        }
+
+        /* ── SECTION LABELS ── */
+        .section-head {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .section-title .dim { color: rgba(255,255,255,0.15); }
+
+        /* ── STATS ── */
+        .stats-section {
+            padding: 5rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 2.5rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: default;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(79,142,247,0.05), rgba(167,139,250,0.05));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .stat-card:hover::before { opacity: 1; }
+        .stat-card:hover::after { transform: scaleX(1); }
+        .stat-card:hover { transform: translateY(-4px); }
+
+        .stat-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* ── ABOUT ── */
+        .about-section { padding: 5rem 0; }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .about-text-card {
+            background: var(--surface);
+            padding: 3.5rem;
+            transition: background 0.4s;
+        }
+
+        .about-text-card:hover { background: var(--surface2); }
+
+        .about-text-card p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text-card strong { color: var(--text); }
+
+        .about-details-card {
+            background: var(--surface);
+            padding: 3.5rem;
+            transition: background 0.4s;
+        }
+
+        .about-details-card:hover { background: var(--surface2); }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            gap: 1rem;
+        }
+
+        .detail-row:last-child { border-bottom: none; }
+
+        .detail-label {
+            font-size: 0.78rem;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .detail-val {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: right;
+            color: var(--text);
+        }
+
+        /* ── SKILLS ── */
+        .skills-section { padding: 5rem 0; }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .skill-card {
+            background: var(--surface);
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: attr(data-num);
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            font-family: 'Syne', sans-serif;
+            font-size: 5rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.02);
+            pointer-events: none;
+        }
+
+        .skill-card:hover { background: var(--surface2); transform: translateZ(10px); }
+
+        .skill-card h3 {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+        .tag-3d {
+            padding: 0.4rem 0.9rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            cursor: default;
+            position: relative;
+        }
+
+        .tag-3d:hover {
+            background: rgba(79,142,247,0.1);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px) translateZ(5px);
+            box-shadow: 0 8px 20px var(--glow-blue);
+        }
+
+        /* ── PROJECTS ── */
+        .projects-section { padding: 5rem 0; }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(79,142,247,0.04), rgba(167,139,250,0.04));
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .project-card:hover {
+            transform: perspective(800px) rotateX(3deg) rotateY(-3deg) translateY(-8px);
+            border-color: rgba(79,142,247,0.4);
+            box-shadow: 20px 30px 60px rgba(0,0,0,0.4), 0 0 60px var(--glow-blue);
+        }
+
+        .project-card:hover::before { opacity: 1; }
+
+        .project-thumb {
+            height: 200px;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: white;
+        }
+
+        .project-thumb-1 {
+            background: linear-gradient(135deg, #1a3a6b, #0f2040);
+        }
+
+        .project-thumb-2 {
+            background: linear-gradient(135deg, #2d1b5e, #1a0f3a);
+        }
+
+        .project-thumb::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.02) 10px,
+                rgba(255,255,255,0.02) 20px
+            );
+        }
+
+        .project-num {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.3);
+            font-family: 'Syne', sans-serif;
+        }
+
+        .project-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.5px;
+        }
+
+        .project-card p {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+
+        .project-link {
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .project-link:hover { gap: 1rem; }
+
+        .project-link::after { content: '→'; }
+
+        /* ── CONTACT ── */
+        .contact-section { padding: 5rem 0; }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+        }
+
+        .contact-cta {
+            background: var(--surface);
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.4s;
+        }
+
+        .contact-cta:hover { background: var(--surface2); }
+
+        .contact-cta::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79,142,247,0.08), transparent);
+            top: -100px;
+            right: -100px;
+            pointer-events: none;
+        }
+
+        .contact-cta h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-cta h2 .accent { 
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-cta p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            max-width: 360px;
+        }
+
+        .contact-info {
+            background: var(--surface);
+            padding: 4rem;
+            transition: background 0.4s;
+        }
+
+        .contact-info:hover { background: var(--surface2); }
+
+        .contact-info-title {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
+
+        .contact-link-row {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-link-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .contact-link-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .contact-link-item:hover { transform: translateX(8px); }
+
+        .contact-link-item .lbl {
+            font-size: 0.72rem;
+            color: var(--muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .contact-link-item .val {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+            transition: color 0.3s;
+        }
+
+        .contact-link-item:hover .val { color: var(--accent); }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.8rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ── REVEAL ANIMATION ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .hero, .about-grid, .skills-grid, .projects-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 { font-size: 3.2rem; }
+            .section-title { font-size: 2.2rem; }
+
+            .hero-scene { display: none; }
+
+            .nav-links { display: none; }
+
+            .contact-cta h2 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D Particle Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="container">
+        <nav class="reveal">
+            <div class="logo">
+                <span class="logo-box">KUR</span>
+                Keesari Uday Reddy
+            </div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-content reveal">
+                <h1>
+                    FULLSTACK<br>
+                    <span class="gradient-text">DEVELOPER</span><br>
+                    <span class="word-outline">& BUILDER</span>
+                </h1>
+                <p class="hero-desc">
+                    <strong>CS Student @ Manipal University, Jaipur.</strong> Building modern,
+                    responsive web experiences. Focused on clean interfaces, real projects,
+                    and practical product thinking.
+                </p>
+                <div class="btn-row">
+                    <a href="#contact" class="btn btn-primary">Let's Talk</a>
+                    <a href="#projects" class="btn btn-ghost">View Work</a>
+                </div>
+            </div>
+
+            <!-- 3D CARD -->
+            <div class="hero-scene reveal" id="hero-scene">
+                <div class="hero-card-3d" id="hero-card">
+                    <div class="hero-card-face">
+                        <div class="hero-card-avatar" style="padding:0;overflow:hidden;background:none;box-shadow:0 0 40px rgba(79,142,247,0.3), 0 0 80px rgba(167,139,250,0.2);">
+                            <img src="public/images/KeesariUdayReddy.png" alt="Keesari Uday Reddy" style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;display:block;">
+                        </div>
+                        <div class="hero-card-name">Keesari Uday Reddy</div>
+                        <div class="hero-card-role">Fullstack Developer</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <section class="stats-section reveal">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-num">8.20</div>
+                    <div class="stat-label">Current CGPA at Manipal University, Jaipur</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">2024–27</div>
+                    <div class="stat-label">BCA — Bachelor of Computer Applications</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">2024–28</div>
+                    <div class="stat-label">B.Tech (PWIOI) Residential Program</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">3+</div>
+                    <div class="stat-label">Personal web projects shipped</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">Thinker</div>
+                    <div class="stat-label">Leadership & project management mindset</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="about-section reveal">
+            <div class="section-head">
+                <div class="section-label">Who I Am</div>
+                <h2 class="section-title">ABOUT <span class="dim">ME</span></h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-text-card">
+                    <p>I'm a <strong>Computer Science student at Manipal University, Jaipur</strong> and a passionate Frontend Developer focused on building modern, responsive, and user-friendly web applications. I enjoy creating clean UI designs and turning ideas into interactive digital experiences using technologies like <strong>React.js, JavaScript, HTML, CSS</strong>.</p>
+                    <p>Constantly learning and improving in frontend development, backend technologies, system design, and mobile app development with React Native. I also explore UI/UX design using Figma and AI/ML concepts.</p>
+                    <p>My goal is to create impactful applications that combine great design with smooth user experience — bridging the gap between logic and interface.</p>
+                </div>
+                <div class="about-details-card">
+                    <div class="detail-row">
+                        <span class="detail-label">University</span>
+                        <span class="detail-val">Manipal University, Jaipur</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Degree</span>
+                        <span class="detail-val">BCA + B.Tech (PWIOI)</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Core Strength</span>
+                        <span class="detail-val">Web Dev + DSA</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Interests</span>
+                        <span class="detail-val">Reading, Chess, Badminton</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Soft Skills</span>
+                        <span class="detail-val">Communication, Adaptability</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section id="skills" class="skills-section reveal">
+            <div class="section-head">
+                <div class="section-label">What I Work With</div>
+                <h2 class="section-title">TECH <span class="dim">STACK</span></h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card" data-num="01">
+                    <h3>Languages</h3>
+                    <div class="tags">
+                        <span class="tag-3d">Python</span>
+                        <span class="tag-3d">JavaScript</span>
+                        <span class="tag-3d">C</span>
+                        <span class="tag-3d">C++</span>
+                    </div>
+                </div>
+                <div class="skill-card" data-num="02">
+                    <h3>Frontend</h3>
+                    <div class="tags">
+                        <span class="tag-3d">HTML5</span>
+                        <span class="tag-3d">CSS3</span>
+                        <span class="tag-3d">React.js</span>
+                        <span class="tag-3d">Bootstrap</span>
+                        <span class="tag-3d">Responsive UI</span>
+                    </div>
+                </div>
+                <div class="skill-card" data-num="03">
+                    <h3>Databases & Tools</h3>
+                    <div class="tags">
+                        <span class="tag-3d">MongoDB</span>
+                        <span class="tag-3d">Git</span>
+                        <span class="tag-3d">GitHub</span>
+                        <span class="tag-3d">Vercel</span>
+                    </div>
+                </div>
+                <div class="skill-card" data-num="04">
+                    <h3>Core Concepts</h3>
+                    <div class="tags">
+                        <span class="tag-3d">OOP</span>
+                        <span class="tag-3d">Data Structures</span>
+                        <span class="tag-3d">Algorithms</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="projects-section reveal">
+            <div class="section-head">
+                <div class="section-label">What I've Built</div>
+                <h2 class="section-title">PROJECTS</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-thumb project-thumb-1">
+                        <span>PORTFOLIO</span>
+                        <span class="project-num">01</span>
+                    </div>
+                    <h3>Personal Portfolio Website</h3>
+                    <p>A portfolio built from scratch presenting education, technical skills, achievements, social links, and project work in one cohesive place.</p>
+                    <div class="project-tags">
+                        <span class="tag-3d">Frontend</span>
+                        <span class="tag-3d">JavaScript</span>
+                        <span class="tag-3d">Responsive UI</span>
+                        <span class="tag-3d">Design</span>
+                    </div>
+                    <a href="#" class="project-link">View Live Site</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-thumb project-thumb-2">
+                        <span>GADGET ZONE</span>
+                        <span class="project-num">02</span>
+                    </div>
+                    <h3>Electronics Website</h3>
+                    <p>A fully responsive e-commerce style website for electronics and gadgets, featuring modern UI patterns, smooth interactions, and mobile-first design.</p>
+                    <div class="project-tags">
+                        <span class="tag-3d">HTML</span>
+                        <span class="tag-3d">CSS</span>
+                        <span class="tag-3d">JavaScript</span>
+                        <span class="tag-3d">Bootstrap</span>
+                    </div>
+                    <a href="https://uday-reddy1634.github.io/phonewebsite/" target="_blank" class="project-link">View Live Site</a>
+                </div>
+                <div class="project-card">
+                    <div class="project-thumb project-thumb-3" style="background: linear-gradient(135deg, #1f2937, #111827);">
+                        <span>POPX</span>
+                        <span class="project-num">03</span>
+                    </div>
+                    <h3>PopX Authentication App</h3>
+                    <p>A modern, responsive React application featuring a seamless user authentication flow. It includes intuitive sign-up and login interfaces, dynamic profile management, and clean UI/UX principles designed for an optimal user experience.</p>
+                    <div class="project-tags">
+                        <span class="tag-3d">React</span>
+                        <span class="tag-3d">JavaScript</span>
+                        <span class="tag-3d">UI/UX</span>
+                        <span class="tag-3d">Auth</span>
+                    </div>
+                    <a href="https://popx-app-nine-gamma.vercel.app/" target="_blank" class="project-link">View Live Site</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="contact-section reveal">
+            <div class="section-head">
+                <div class="section-label">Get In Touch</div>
+                <h2 class="section-title">CONTACT</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-cta">
+                    <h2>LET'S BUILD<br>SOMETHING<br><span class="accent">GREAT.</span></h2>
+                    <p>Open to internship opportunities, collaborations, coursework projects, and conversations around building better web experiences.</p>
+                    <div class="btn-row">
+                        <a href="mailto:udayreddy1305@gmail.com" class="btn btn-primary">Email Me</a>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-info-title">Direct Links</div>
+                    <div class="contact-link-row">
+                        <a href="mailto:udayreddy1305@gmail.com" class="contact-link-item">
+                            <span class="lbl">Email</span>
+                            <span class="val">udayreddy1305@gmail.com</span>
+                        </a>
+                        <a href="https://github.com/uday-reddy1634" target="_blank" class="contact-link-item">
+                            <span class="lbl">GitHub</span>
+                            <span class="val">uday-reddy1634</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/keesari-uday-reddy-956606320/" target="_blank" class="contact-link-item">
+                            <span class="lbl">LinkedIn</span>
+                            <span class="val">keesari-uday-reddy</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2026 Keesari Uday Reddy &nbsp;·&nbsp; Built with HTML, CSS &amp; JavaScript
+        </footer>
+    </div>
+
+    <script>
+    // ── 3D PARTICLE CANVAS ──
+    (function() {
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let W, H, particles = [], mouse = { x: -9999, y: -9999 };
+
+        function resize() {
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * W;
+                this.y = Math.random() * H;
+                this.z = Math.random();
+                this.size = this.z * 1.5 + 0.3;
+                this.speedX = (Math.random() - 0.5) * 0.3 * this.z;
+                this.speedY = (Math.random() - 0.5) * 0.3 * this.z;
+                this.alpha = this.z * 0.4 + 0.05;
+                this.color = Math.random() > 0.5 ? '79,142,247' : '167,139,250';
+            }
+            update() {
+                const dx = this.x - mouse.x;
+                const dy = this.y - mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) {
+                    const force = (120 - dist) / 120 * 0.5;
+                    this.x += dx / dist * force;
+                    this.y += dy / dist * force;
+                }
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0) this.x = W;
+                if (this.x > W) this.x = 0;
+                if (this.y < 0) this.y = H;
+                if (this.y > H) this.y = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${this.color},${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(Math.floor(W * H / 10000), 150);
+            for (let i = 0; i < count; i++) particles.push(new Particle());
+        }
+
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(79,142,247,${(1 - dist / 100) * 0.08})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, W, H);
+            drawConnections();
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('mousemove', e => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('resize', () => { resize(); initParticles(); });
+        resize();
+        initParticles();
+        animate();
+    })();
+
+    // ── 3D HERO CARD TILT ──
+    (function() {
+        const scene = document.getElementById('hero-scene');
+        const card = document.getElementById('hero-card');
+        if (!scene || !card) return;
+
+        let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+
+        scene.addEventListener('mousemove', e => {
+            const rect = scene.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            targetX = ((e.clientY - cy) / (rect.height / 2)) * -15;
+            targetY = ((e.clientX - cx) / (rect.width / 2)) * 18;
+        });
+
+        scene.addEventListener('mouseleave', () => {
+            targetX = 0;
+            targetY = 0;
+        });
+
+        function lerpCard() {
+            currentX += (targetX - currentX) * 0.08;
+            currentY += (targetY - currentY) * 0.08;
+            card.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg) translateZ(0)`;
+            requestAnimationFrame(lerpCard);
+        }
+        lerpCard();
+
+        // Scroll parallax tilt
+        window.addEventListener('scroll', () => {
+            const rect = scene.getBoundingClientRect();
+            const scrollFactor = (window.innerHeight / 2 - rect.top - rect.height / 2) / window.innerHeight * 6;
+            card.style.setProperty('--scroll-tilt', scrollFactor + 'deg');
+        });
+    })();
+
+    // ── 3D PROJECT CARD TILT ──
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const rx = ((e.clientY - cy) / (rect.height / 2)) * -6;
+            const ry = ((e.clientX - cx) / (rect.width / 2)) * 8;
+            card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-8px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+
+    // ── SCROLL REVEAL ──
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, 100);
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // ── STAT CARD COUNTER ANIMATION ──
+    function animateCount(el, target, suffix) {
+        const isFloat = target % 1 !== 0;
+        let start = 0;
+        const duration = 1500;
+        const step = (timestamp) => {
+            if (!start) start = timestamp;
+            const progress = Math.min((timestamp - start) / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            const val = isFloat ? (ease * target).toFixed(2) : Math.floor(ease * target);
+            el.textContent = val + (suffix || '');
+            if (progress < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+    }
+
+    const statObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target.querySelector('.stat-num');
+                const txt = el.textContent;
+                if (txt === '8.20') animateCount(el, 8.20);
+                else if (txt === '3+') { animateCount(el, 3); el.textContent = '3+'; }
+                statObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-card').forEach(c => statObserver.observe(c));
+    </script>
+</body>
+</html>
